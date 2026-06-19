@@ -46,18 +46,6 @@ final class OtpService
         return $this->otpRepository->create($record);
     }
 
-    public function createWithTOTP(
-        Model $identifier,
-        PurposeVO $purpose,
-        string $secret,
-        ?int $ttl = null,
-    ): Model {
-        $code = $this->generator->generateTOTP($secret);
-        $ttl = $ttl ?? $purpose->getTtl() ?? 300;
-
-        return $this->create($identifier, $purpose, $code, $ttl);
-    }
-
     public function verify(
         Model $identifier,
         string $code,

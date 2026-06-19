@@ -369,24 +369,6 @@ final class OtpServiceIntegrationTest extends IntegrationTestCase
         $this->assertSame($otp->id, $found->id);
     }
 
-    public function test_create_with_totp(): void
-    {
-        $secret = $this->otpService->generateSecret();
-
-        $otp = $this->otpService->createWithTOTP(
-            $this->user,
-            $this->twoFactorPurpose,
-            $secret
-        );
-
-        $otp->refresh();
-
-        $this->assertInstanceOf(Otp::class, $otp);
-        $this->assertSame('two_factor', $otp->getPurpose()->getValue()->toArray()['value']);
-        $this->assertSame(6, strlen($otp->code));
-        $this->assertTrue(is_numeric($otp->code));
-    }
-
     public function test_cannot_verify_exceeded_attempts(): void
     {
         $otp = $this->otpService->create($this->user, $this->authenticationPurpose);

@@ -29,22 +29,6 @@ final class OtpGenerator
         return Str::upper(Str::random($length));
     }
 
-    public function generateTOTP(string $secret, int $digits = 6): string
-    {
-        $decodedSecret = $this->base32Decode($secret);
-
-        if ($decodedSecret === '') {
-            return $this->generateNumeric($digits);
-        }
-
-        $counter = floor(time() / 30);
-        $hash = hash_hmac('sha1', pack('N*', 0, $counter), $decodedSecret, true);
-        $offset = ord(substr($hash, -1)) & 0xF;
-        $truncated = unpack('N', substr($hash, $offset, 4))[1] & 0x7FFFFFFF;
-
-        return str_pad((string) ($truncated % 10 ** $digits), $digits, '0', STR_PAD_LEFT);
-    }
-
     private function base32Decode(string $secret): string
     {
         $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
