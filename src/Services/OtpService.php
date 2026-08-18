@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace AndyDefer\LaravelOtp\Services;
 
+use AndyDefer\LaravelOtp\Contracts\Repositories\OtpRepositoryInterface;
+use AndyDefer\LaravelOtp\Contracts\Services\OtpGeneratorInterface;
+use AndyDefer\LaravelOtp\Contracts\Services\OtpServiceInterface;
 use AndyDefer\LaravelOtp\Records\OtpFilterRecord;
 use AndyDefer\LaravelOtp\Records\OtpRecord;
-use AndyDefer\LaravelOtp\Repositories\OtpRepository;
 use AndyDefer\LaravelOtp\ValueObjects\PurposeVO;
 use AndyDefer\PhpVo\ValueObjects\DateTimeVO;
 use AndyDefer\Repository\Records\FindByRecord;
@@ -16,11 +18,11 @@ use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-final class OtpService
+final class OtpService implements OtpServiceInterface
 {
     public function __construct(
-        private readonly OtpRepository $otpRepository,
-        private readonly OtpGenerator $generator,
+        private readonly OtpRepositoryInterface $otpRepository,
+        private readonly OtpGeneratorInterface $generator,
     ) {}
 
     public function create(

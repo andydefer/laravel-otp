@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AndyDefer\LaravelOtp\Services;
 
+use AndyDefer\LaravelOtp\Contracts\Services\OtpGeneratorInterface;
 use Illuminate\Support\Str;
 
-final class OtpGenerator
+final class OtpGenerator implements OtpGeneratorInterface
 {
     public function generate(
         int $length = 6,

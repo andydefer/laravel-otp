@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AndyDefer\LaravelOtp\Repositories;
 
 use AndyDefer\DomainStructures\Abstracts\AbstractRecord;
+use AndyDefer\LaravelOtp\Contracts\Repositories\OtpRepositoryInterface;
 use AndyDefer\LaravelOtp\Models\Otp;
 use AndyDefer\LaravelOtp\Records\OtpFilterRecord;
 use AndyDefer\LaravelOtp\Records\OtpRecord;
@@ -12,7 +13,7 @@ use AndyDefer\Repository\AbstractRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-final class OtpRepository extends AbstractRepository
+final class OtpRepository extends AbstractRepository implements OtpRepositoryInterface
 {
     public function __construct()
     {
@@ -105,7 +106,7 @@ final class OtpRepository extends AbstractRepository
         return (new ModelNotFoundException)->setModel(Otp::class, $id);
     }
 
-    public function incrementAttempts(int $id): Otp
+    public function incrementAttempts(int $id): object
     {
         $otp = $this->find($id);
 
@@ -119,7 +120,7 @@ final class OtpRepository extends AbstractRepository
         return $otp;
     }
 
-    public function markAsUsed(int $id): Otp
+    public function markAsUsed(int $id): object
     {
         $otp = $this->find($id);
 
