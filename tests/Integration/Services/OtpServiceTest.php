@@ -12,7 +12,7 @@ use AndyDefer\LaravelOtp\Tests\Fixtures\Models\TestUser;
 use AndyDefer\LaravelOtp\Tests\IntegrationTestCase;
 use AndyDefer\LaravelOtp\ValueObjects\PurposeVO;
 
-final class OtpServiceIntegrationTest extends IntegrationTestCase
+final class OtpServiceTest extends IntegrationTestCase
 {
     private OtpService $otpService;
 

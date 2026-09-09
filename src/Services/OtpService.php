@@ -62,7 +62,12 @@ final class OtpService implements OtpServiceInterface
 
         $maxAttempts = $purpose->getMaxAttempts() ?? 3;
 
-        if ($otp->attempts >= $maxAttempts) {
+        // ✅ Incrémenter via le repository
+        $this->otpRepository->incrementAttempts($otp->id);
+        $otp->refresh();
+
+        // ✅ Vérifier si le max est dépassé
+        if ($otp->attempts > $maxAttempts) {
             $this->otpRepository->delete($otp->id);
 
             return false;
