@@ -79,7 +79,7 @@ final class OtpServiceTest extends IntegrationTestCase
         $otp->refresh();
 
         $this->assertInstanceOf(Otp::class, $otp);
-        $this->assertSame($this->user->id, $otp->identifier_id);
+        $this->assertSame((string) $this->user->id, $otp->identifier_id);
         $this->assertSame('authentication', $otp->getPurpose()->getValue()->toArray()['value']);
         $this->assertFalse($otp->isUsed());
         $this->assertFalse($otp->isExpired());

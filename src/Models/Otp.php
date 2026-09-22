@@ -6,7 +6,7 @@ namespace AndyDefer\LaravelOtp\Models;
 
 use AndyDefer\DomainStructures\Utils\StrictDataObject;
 use AndyDefer\LaravelOtp\ValueObjects\PurposeVO;
-use AndyDefer\PhpVo\ValueObjects\DateTimeVO;
+use AndyDefer\PhpVo\ValueObjects\DateTimeZuluVO;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -45,39 +45,39 @@ final class Otp extends Model
         return PurposeVO::from($this->purpose ?? []);
     }
 
-    public function getCreatedAt(): ?DateTimeVO
+    public function getCreatedAt(): ?DateTimeZuluVO
     {
         $value = $this->created_at;
 
-        return $value ? new DateTimeVO($value) : null;
+        return $value ? new DateTimeZuluVO($value->utc()->format('Y-m-d\TH:i:s\Z')) : null;
     }
 
-    public function getUpdatedAt(): ?DateTimeVO
+    public function getUpdatedAt(): ?DateTimeZuluVO
     {
         $value = $this->updated_at;
 
-        return $value ? new DateTimeVO($value) : null;
+        return $value ? new DateTimeZuluVO($value->utc()->format('Y-m-d\TH:i:s\Z')) : null;
     }
 
-    public function getExpiresAt(): ?DateTimeVO
+    public function getExpiresAt(): ?DateTimeZuluVO
     {
         $value = $this->expires_at;
 
-        return $value ? new DateTimeVO($value) : null;
+        return $value ? new DateTimeZuluVO($value->utc()->format('Y-m-d\TH:i:s\Z')) : null;
     }
 
-    public function getUsedAt(): ?DateTimeVO
+    public function getUsedAt(): ?DateTimeZuluVO
     {
         $value = $this->used_at;
 
-        return $value ? new DateTimeVO($value) : null;
+        return $value ? new DateTimeZuluVO($value->utc()->format('Y-m-d\TH:i:s\Z')) : null;
     }
 
-    public function getDeletedAt(): ?DateTimeVO
+    public function getDeletedAt(): ?DateTimeZuluVO
     {
         $value = $this->deleted_at;
 
-        return $value ? new DateTimeVO($value) : null;
+        return $value ? new DateTimeZuluVO($value->utc()->format('Y-m-d\TH:i:s\Z')) : null;
     }
 
     public function getMetadata(): ?StrictDataObject
